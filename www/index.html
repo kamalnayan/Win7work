@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+  <head>
+   
+    <meta name="viewport" content="width=480, height=800, user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+    <title>Workout</title>
+
+    <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script type="text/javascript" src="js/cookieplug.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/videopage.css" />
+    <title>Workout</title>
+    <script>
+      $(document).ready(function(){
+      var sqncarray=[];
+      var namearray=[];
+      var colorarray=[];
+      var videoarray=[];
+      var descarray=[];
+      var xml = "<?xml version='1.0'?><root><title>7 minutes Workout</title><text>12 high intensity bodyweight exercises. 30 seconds per exercise, 10 seconds rest between exercise.</text><exercises><exercise><sequence>1</sequence><name>Push Ups</name><color>#e74c3c</color><description>Push ups description.</description><video>http://youtu.be/Eh00_rniF8E</video></exercise><exercise><sequence>2</sequence><name>Pull Ups</name><color>#3498db</color><description>Pull ups description.</description><video>http://youtu.be/mRznU6pzez0</video></exercise><exercise><sequence>3</sequence><name>Squats</name><color>#34495e</color><description>Squats description.</description><video>http://youtu.be/Dy28eq2PjcM</video></exercise><exercise><sequence>4</sequence><name>Crunches</name><color>#1abc9c</color><description>Crunches description.</description><video>http://youtu.be/Xyd_fa5zoEU</video></exercise><exercise><sequence>5</sequence><name>Triceps </name><color>#9b59b6</color><description>Triceps description.</description><video>http://youtu.be/PserUqF1jV4</video></exercise></exercises></root>";
+      var xml_parse = $.parseXML(xml);
+      var $xml = $(xml_parse);
+      var output = '<div id="list">';
+        $xml.find("exercise").each(function() {
+        var sequence = $(this).find('sequence').text();
+        var sqn=sequence-1;
+        sqncarray.push(sequence);
+        var name = $(this).find('name').text();
+        namearray.push(name);
+        var color=$(this).find('color').text();
+        colorarray.push(color);
+        var description=$(this).find('description').text();
+        descarray.push(description);
+        var video=$(this).find('video').text();
+        videoarray.push(video);
+        var url = "homevideopage.html?color="+encodeURIComponent(color)+"&description="+encodeURIComponent(description)+"&video="+encodeURIComponent(video)+"&name="+encodeURIComponent(name);
+        var url1="homevideopage.html";
+        output += '<div class="onelist" style="background-color:' + color + ';" name='+sqn+'> <div id="sequence" style="width:20%;">' + sequence+ '</div><div id="name" style="width:60%;">' + name + '</div><div id="go"><img src="img/right_arrow.png"></div><div style="clear:both;"></div></div><div id="nextpage" style="display:none;">find me</div>';
+        });
+        output += '</div>';
+      $('#update').html(output);
+      $.cookie("example", "Red");
+
+
+
+      $('.onelist').click(function(){
+      var sqnc=$(this).attr("name");
+      document.body.style.backgroundColor=colorarray[sqnc];
+      $('#namehead').html(namearray[sqnc]);
+      $('#exdesc').html(descarray[sqnc]);
+      var vdo=videoarray[sqnc];
+      $("#playvideo").html(vdo);
+      $('#playvideo').html(function (i, html) {
+      return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="100%" height="325px" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen=""></iframe>');
+      });
+      $('#div1').toggle();
+      $('#update').toggle();
+      $('#footbtn').toggle();
+      $('#videopage').toggle();
+      });
+
+      $('.button1').click(function(){
+      document.body.style.backgroundColor="#A8A8A8";
+      $('#playvideo').html('');
+      $('#videopage').toggle();
+      $('#div1').toggle();
+      $('#update').toggle();
+      $('#footbtn').toggle();
+      });
+
+
+
+
+
+      });
+
+    </script>
+    <script>
+      function startworkout()
+      {
+      window.location.href="startwork.html";
+      }
+     
+      
+    </script>
+  </head>
+  <body>
+    <div id="container">
+    <div id="div1">
+      <div id="setting"></div>
+      <div id="question"></div>
+      <center>
+        <div id="heading">
+          <h1>
+            The 7 Minute</br>
+            Workout
+          </h1>
+        </div>
+        <div id="subhead">
+
+          12 high intensity bodyweight exercises.</br> 30 seconds per exercise,10 seconds</br>rest between exercise.
+
+        </div>
+      </center>
+    </div>
+    <div style="clear:both;"></div>  
+    
+    
+    <div id="videopage" style="display:none;">
+      <div id="namehead" style="position:fixed; width:100%; background-color:#A0A0A0; height:2.4em; padding-top:33px; top:0px; left:0px; font-size:25px; "> </div>
+   <div class="button1" id="close" style="float:left;">Close</div>
+    <div align="center" style="width:90%; margin:0 auto;">
+      <div align="left" id="exdesc"></div>
+      <div align="left" id="playvideo"></div>
+    </div>
+    </div>
+    
+    
+      <div id='update'>This is a div.</div>
+      <div id='footbtn' style="position:fixed; width:100%; background-color:#A8A8A8 ;bottom:1.1em; 1em;height:4.5em; text-align:center; ">
+      <button class="button" id="save" onclick="startworkout();">
+          <b>Start A Workout</b>
+        </button>
+      </div>
+    </div>
+  
+    </body>
+</html>

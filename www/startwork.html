@@ -1,0 +1,458 @@
+<!doctype html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+  <head>
+    <!-- http://msdn.microsoft.com/en-us/library/ff462082(VS.92).aspx -->
+    <meta name="viewport" content="width=480, height=800, user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+    <title>PhoneGap WP7</title>
+
+    <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <link rel="stylesheet" href="css/startwork.css">
+          <link rel="stylesheet"  href="css/videopage.css" />
+            <script>
+              $(document).ready(function(){
+              var myAudio=document.getElementById("audio1");
+
+              var clrarray=[];
+              var namearray=[];
+              var sqncarray=[];
+              var descarray=[];
+              var videoarray=[];
+              var xml = "<?xml version='1.0'?><root><title>7 minutes Workout</title><text>12 high intensity bodyweight exercises. 30 seconds per exercise, 10 seconds rest between exercise.</text><exercises><exercise><sequence>1</sequence><name>Push Ups</name><color>#e74c3c</color><description>Push ups description.</description><video>http://youtu.be/Eh00_rniF8E</video></exercise><exercise><sequence>2</sequence><name>Pull Ups</name><color>#3498db</color><description>Pull ups description.</description><video>http://youtu.be/mRznU6pzez0</video></exercise><exercise><sequence>3</sequence><name>Squats</name><color>#34495e</color><description>Squats description.</description><video>http://youtu.be/Dy28eq2PjcM</video></exercise><exercise><sequence>4</sequence><name>Crunches</name><color>#1abc9c</color><description>Crunches description.</description><video>http://youtu.be/Xyd_fa5zoEU</video></exercise><exercise><sequence>5</sequence><name>Triceps </name><color>#9b59b6</color><description>Triceps description.</description><video>http://youtu.be/PserUqF1jV4</video></exercise></exercises></root>";
+            var xml_parse = $.parseXML(xml);
+            var $xml = $(xml_parse);
+            var output1 = '<div align="center" id="btn">';
+              $xml.find("exercise").each(function() {
+              var sequence = $(this).find('sequence').text();
+              sqncarray.push(sequence);
+              var name = $(this).find('name').text();
+              namearray.push(name);
+              var color=$(this).find('color').text();
+              clrarray.push(color);
+              var description=$(this).find('description').text();
+              descarray.push(description);
+              var video=$(this).find('video').text();
+              videoarray.push(video);
+              var btnclr="btnclr"+sequence;
+              output1 +='<input type="button" id='+btnclr+' class="button2" value='+sequence+'>';
+            });
+             output1 +='</div>';
+            $('#btndata').html(output1);
+
+
+          
+        if ($('#getvar').html=="abs") {
+            
+           
+            $( "#dialog-message1" ).dialog({
+            modal: true,
+            });
+            $(".ui-dialog-titlebar").hide();
+            }
+            else {
+            document.body.style.backgroundColor="#000000";
+            $( "#dialog-message" ).dialog({
+            modal: true,
+            });
+            $(".ui-dialog-titlebar").hide();
+            }
+
+            var amount=parseInt($('#amount').val());
+            var i = parseInt($('#count').html());
+            var a = parseInt($('#count1').html());
+            var m = parseInt($('#interval').html());
+            var c = parseInt($('#continue').html());
+            var s = parseInt($('#set').html());
+            var r = parseInt($('#repset').html());
+            var tim;
+            function run(){
+            var length=sqncarray.length*40;
+
+            i = parseInt($('#count').html());
+            a = parseInt($('#count1').html());
+            m = parseInt($('#interval').html());
+            c = parseInt($('#continue').html());
+            s = parseInt($('#set').html());
+            r = parseInt($('#repset').html());
+
+            tim = setInterval(function(){
+            if(c>=length){clearInterval(tim);
+            $('#set').html('1');
+            $('#repset').html(++r);
+            myAudio.pause();
+            $( "#dialog-message2" ).dialog({
+            modal: true,
+            });
+            $(".ui-dialog-titlebar").hide();
+            }
+
+            $('#count1').html(++a);
+            $('#count').html(--i);
+            $('#continue').html(++c);
+            if(a==10)
+            {
+            $('#count').html("30");
+            i = parseInt($('#count').html());
+            <!--  var url3 = "videopage.html?color=" + encodeURIComponent(clrarray[m-1]) + "&description=" + encodeURIComponent(descarray[m-1])+ "&video=" + encodeURIComponent(videoarray[m-1])+ "&name=" + encodeURIComponent(namearray[m-1])+ "&exsequence=" + encodeURIComponent(m-1)+ "&exsequence1=" + encodeURIComponent(m);-->
+
+            $('#runex').html(namearray[m-1]);
+            <!-- var url4 = "videopage.html?color=" + encodeURIComponent(clrarray[m]) + "&description=" + encodeURIComponent(descarray[m])+ "&video=" + encodeURIComponent(videoarray[m])+ "&name=" + encodeURIComponent(namearray[m])+ "&exsequence=" + encodeURIComponent(m-1)+ "&exsequence1=" + encodeURIComponent(m); -->
+              $('#nextex').html( namearray[m]);
+
+
+              }
+              else if(a==40)
+              {
+              document.body.style.backgroundColor=clrarray[m];
+              $('#set').html(++s);
+              var nh='Set '+$('#set').html()+' of '+$('#repset').html();
+              $('#namehead1').html(nh);
+              var btnid="#btnclr"+m;
+              $(btnid).css("background-color",'#FFFFFF');
+              $('#count1').html("0");
+              $('#count').html("10");
+              i = parseInt($('#count').html());
+              a= parseInt($('#count1').html());
+              $('#runex').html("REST!");
+              $('#interval').html(++m);
+              var btnid="#btnclr"+m;
+              $(btnid).css("background-color",clrarray[m-1]);
+
+
+              }
+              },1000);
+              }
+
+              $('#stopper').click(function(){
+              clearInterval(tim);
+              $(this).hide();
+              myAudio.pause();
+              $('#starter').show();
+              });
+
+              $('#resetter').click(function(){
+              clearInterval(tim);
+              i=10;
+              $('#count').html(i);
+              });
+
+              $('#starter').click(function(){
+              $(this).hide();
+              $('#stopper').show();
+              myAudio.play();
+              clearInterval(tim);
+              run();
+              });
+              $('#ready').click(function(){
+              myAudio.play();
+              document.body.style.backgroundColor=clrarray[0];
+              $('#btnclr1').css("background-color",clrarray[0]);
+              $('#firstnext').html(namearray[0]);
+              <!--var url = "videopage.html?color=" + encodeURIComponent(clrarray[0]) + "&description=" + encodeURIComponent(descarray[0])+ "&video=" + encodeURIComponent(videoarray[0])+ "&name=" + encodeURIComponent(namearray[0])+ "&exsequence=" + encodeURIComponent(m-1)+ "&exsequence1=" + encodeURIComponent(m); -->
+
+              clearInterval(tim);
+              run();
+              $('#dialog-message').dialog("close");
+              });
+              $('#close').click(function(){
+              clearInterval(tim);
+              i=10;
+              $('#count').html(i);
+              window.location.href="index.html";
+              });
+              $('#notnow').click(function(){
+              clearInterval(tim);
+              i=10;
+              $('#count').html(i);
+              window.location.href="index.html";
+              });
+              $('#notnow1').click(function(){
+              clearInterval(tim);
+              i=10;
+              $('#count').html(i);
+              window.location.href="index.html";
+              });
+              $('#notnow2').click(function(){
+              clearInterval(tim);
+              i=10;
+              $('#count').html(i);
+              window.location.href="index.html";
+              });
+           
+              $('#resume1').click(function(){
+              $('#dialog-message1').dialog("close");
+              myAudio.play();
+              clearInterval(tim);
+              run();
+              });
+              $('#resume2').click(function(){
+               $('#dialog-message2').dialog("close");
+              myAudio.play();
+              document.body.style.backgroundColor=clrarray[0];
+              $('#btnclr1').css("background-color",clrarray[0]);
+              $('#nextex').html(namearray[0]);
+              $('#continue').html("0");
+              $('#runex').html("GET READY!");
+              $('#interval').html("1");
+              $('#count').html("10");
+              $('#count1').html("0");
+              var nh1='Set '+$('#set').html()+' of '+$('#repset').html();
+              $('#namehead1').html(nh1);
+              <!--var url = "videopage.html?color=" + encodeURIComponent(clrarray[0]) + "&description=" + encodeURIComponent(descarray[0])+ "&video=" + encodeURIComponent(videoarray[0])+ "&name=" + encodeURIComponent(namearray[0])+ "&exsequence=" + encodeURIComponent(m-1)+ "&exsequence1=" + encodeURIComponent(m); -->
+              clearInterval(tim);
+              run();
+             
+              });
+              
+
+
+              $('#runex').click(function(){
+              if($('#runex').html()!="GET READY!" && $('#runex').html()!="REST!")
+              {
+              clearInterval(tim);
+              $('#play1').hide();
+              $('#mute').show();
+              myAudio.pause();
+              $('#getvar').html('abs');
+              $('#firstpart').hide();
+              $('#secondpart').hide();
+              $('#videopage').show();
+              document.body.style.backgroundColor=clrarray[m-1];
+              $('#namehead').html(namearray[m-1]);
+              $('#exdesc').html(descarray[m-1]);
+              var vdo=videoarray[m-1];
+              $("#playvideo").html(vdo);
+              $('#playvideo').html(function (i, html) {
+              return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="100%" height="325px" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen=""></iframe>');
+              });
+              }
+              });
+              $('#firstnext').click(function(){
+              clearInterval(tim);
+              $('#play1').hide();
+              $('#mute').show();
+              myAudio.pause();
+              $('#getvar').html('abs');
+              $('#firstpart').hide();
+              $('#secondpart').hide();
+              $('#videopage').show();
+              document.body.style.backgroundColor=clrarray[0];
+              $('#namehead').html(namearray[0]);
+              $('#exdesc').html(descarray[0]);
+              var vdo=videoarray[m];
+              $("#playvideo").html(vdo);
+              $('#playvideo').html(function (i, html) {
+              return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="100%" height="325px" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen=""></iframe>');
+              });
+              });
+              $('#nextex1').click(function(){
+              clearInterval(tim);
+              $('#play1').hide();
+              $('#mute').show();
+              myAudio.pause();
+              $('#getvar').html('abs');
+              $('#firstpart').hide();
+              $('#secondpart').hide();
+              $('#videopage').show();
+              document.body.style.backgroundColor=clrarray[m];
+              $('#namehead').html(namearray[m]);
+              $('#exdesc').html(descarray[m]);
+              var vdo=videoarray[m];
+              $("#playvideo").html(vdo);
+              $('#playvideo').html(function (i, html) {
+              return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="100%" height="325px" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen=""></iframe>');
+              });
+              
+            });
+            $('#nextex').click(function(){
+            if(a<=10)
+              {
+              clearInterval(tim);
+              $('#play1').hide();
+              $('#mute').show();
+              myAudio.pause();
+              $('#getvar').html('abs');
+              $('#firstpart').hide();
+              $('#secondpart').hide();
+              $('#videopage').show();
+              document.body.style.backgroundColor=clrarray[m-1];
+              $('#namehead').html(namearray[m-1]);
+              $('#exdesc').html(descarray[m-1]);
+              var vdo=videoarray[m-1];
+              $("#playvideo").html(vdo);
+              $('#playvideo').html(function (i, html) {
+              return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="100%" height="325px" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen=""></iframe>');
+              });
+              }
+              else {
+              clearInterval(tim);
+              $('#play1').hide();
+              $('#mute').show();
+              myAudio.pause();
+              $('#getvar').html('abs');
+              $('#firstpart').hide();
+              $('#secondpart').hide();
+              $('#videopage').show();
+              document.body.style.backgroundColor=clrarray[m];
+              $('#namehead').html(namearray[m]);
+              $('#exdesc').html(descarray[m]);
+              var vdo=videoarray[m];
+              $("#playvideo").html(vdo);
+              $('#playvideo').html(function (i, html) {
+              return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="100%" height="325px" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen=""></iframe>');
+              });
+              }
+
+              });
+              $('.button1').click(function(){
+              document.body.style.backgroundColor=clrarray[m-1];
+              $('#getvar').html('');
+              $('#playvideo').html('');
+              $('#firstpart').show();
+              $('#secondpart').show();
+              $('#videopage').hide();
+              $( "#dialog-message1" ).dialog({
+              modal: true,
+              });
+              $(".ui-dialog-titlebar").hide();
+              });
+              $('#mute').click(function(){
+              myAudio.muted=true;
+              $(this).toggle();
+              $('#play1').toggle();
+              });
+              $('#play1').click(function(){
+              myAudio.muted=false;
+              $(this).hide();
+              $('#mute').show();
+              });
+
+              });
+
+
+            </script>
+        </head>
+  <body>
+    <div id="firstpart">
+    <div id="namehead1" style="position:fixed; width:100%; background-color:#A0A0A0; height:2.6em; padding-top:33px; top:0px; left:0px; font-size:25px; ">Set 1 of 1</div>
+    <div class="button3" id="stopper">Pause</div>
+    <div class="button3" id="starter" style="display: none">Resume</div>
+    <div class="button3" id="close" style="float:left;">Close</div>
+      <div class="button4" id="mute" style="float:right;"><img src="img/speaker.png" height="70px" width="70px"></div>
+      <div class="button4" id="play1" style="float:right;display:none;"><img src="img/play1.png" height="70px" width="70px"></div>
+    <b>
+      <div id="runex">GET READY!</div>
+    </b>
+    <div id="interval">1</div>
+
+
+    <div id="pop">
+      <div id="dialog-message" style="display: none">
+        <center>
+          <b>Are You Ready?</b>
+        </center>
+        <div id="diadesc1">
+          <center>
+            Make sure you are ready to go, have a</br>
+            step or chair ready for step ups and a</br>
+            chair or bench for dips
+            <button class="button" id="ready">Ready!</button>
+            <button class="button" id="notnow">Not Now</button>
+          </div>
+      </div>
+
+      <div id="dialog-message1" style="display: none">
+        <center>
+          <b>Are You Ready?</b>
+        </center>
+        <div id="diadesc1">
+          <center>
+            Make sure you are ready to go, have a</br>
+            step or chair ready for step ups and a</br>
+            chair or bench for dips
+            <button class="button" id="resume1">Resume!</button>
+            <button class="button" id="notnow1">Not Now</button>
+          </div>
+      </div>
+      
+      
+      <div id="dialog-message2" style="display: none">
+        <center>
+          <b>Are You Ready?</b>
+        </center>
+        <div id="diadesc1">
+          <center>
+            Make sure you are ready for next set</br>
+            step or chair ready for step ups and a</br>
+            chair or bench for dips
+            <button class="button" id="resume2">Next Set</button>
+            <button class="button" id="notnow2">Not Now</button>
+          </div>
+      </div>
+
+    </div>
+
+    </div>
+    
+    <div id="videopage" style="display:none;">
+      <div id="namehead" style="position:fixed; width:100%; background-color:#A0A0A0; height:2.6em; padding-top:33px; top:0px; left:0px; font-size:25px; "> </div>
+      <div class="button1" id="close" style="float:left;">Close</div>
+      <div align="center" style="width:90%; margin:0 auto;">
+        <div align="left" id="exdesc"></div>
+        <div align="left" id="playvideo"></div>
+      </div>
+    </div>
+
+
+
+
+    <div id="secondpart">
+    <input type="hidden" value="200" id="amount"/>
+    <div id="count">10</div>
+      <audio controls loop id="audio1" style="display:none;" >
+
+        <source src="http://fitnessmirror.com/wp-content/uploads/2011/10/11-Lets-Get-It-Started-Workout-Mix.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      
+    <div id="count1">0</div>
+    <div id="continue" style="display:none;">0</div>
+
+    <div id="nextup">Next Up:</div>
+
+    <div id='nextex'>
+      <div id="firstnext"></div>
+      <div id="nextex1"></div>
+    </div>
+
+
+    <div align="center" id="btndata" style="position:fixed; width:100%; margin:0 auto; background-color:#ffffff; left:0px; bottom:2px; text-align:center; "> </div>
+    </div>
+    <div id="getvar" style="display:none;"></div>
+    <div id="set" style="display:none;">1</div>
+    <div id="repset" style="display:none;">1</div>
+  </body>
+</html>

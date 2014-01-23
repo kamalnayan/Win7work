@@ -1,0 +1,167 @@
+body {
+    background-color:#FFFFFF;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    margin:0px;
+    padding:0px;
+    width:100%;
+    color:#ffffff;
+}
+
+#dialog-message
+{
+background-color:#282828;
+font-size:12px;
+color:#ffffff;
+margin:0 auto;
+width: 300px;
+padding-top:10px;
+
+}
+#dialog-message1
+{
+
+background-color:#282828;
+font-size:12px;
+color:#ffffff;
+margin:0 auto;
+width: 300px;
+padding-top:10px;
+
+}
+#dialog-message2
+{
+
+background-color:#282828;
+font-size:12px;
+color:#ffffff;
+margin:0 auto;
+width: 300px;
+padding-top:10px;
+
+}
+.button {
+ 
+  background-color: #ffffff;
+  border: 1px solid #666;
+  color:#000000;
+  text-decoration:none;
+  margin-top: 5px;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  text-align:center;
+  width:202px;
+  opacity:0.8;
+  margin-bottom:10px;
+ 
+}
+#diadesc
+{
+margin-top:3px;
+margin-bottom:3px;
+}
+b{
+margin-up:5px;
+}
+#namehead1{
+text-align:center;
+color:white;
+opacity:0.6;
+font-size:17px;
+}
+#runex
+{
+font-size:35px;
+padding-top:5em;
+text-align:center;
+}
+#count
+{
+text-align:center;
+font-size:75px;
+margin:0 auto;
+margin-top:1.5em;
+margin-bottom:1em;
+}
+#stopper
+{
+top:0px;
+float:right;
+}
+#starter
+{
+top:0px;
+float:right;
+}
+.button3 {
+ 
+  background-color: #ffffff;
+  color:#000;
+  text-decoration:none;
+  margin-top: 33px;
+  margin-right:9px;
+  margin-left:9px;
+  width:80px;
+  padding-top:6px;
+  padding-bottom:6px;
+  text-align:center;
+  opacity:0.7;
+  
+ 
+}
+.button4 {
+  margin-top: 100px;
+  margin-right:-89px;
+  margin-left:9px;
+  width:80px;
+  text-align:center;
+}
+.button2 {
+ 
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-right-color:#C0C0C0;
+  color:#000000;
+  padding:23px;
+  padding-top:18px;
+  padding-bottom:29px;
+  text-decoration:none;
+  text-align:center;
+  opacity:1;
+  margin:-0px; 
+  margin-top:1px;
+  margin-bottom:1px;
+  width:20%;
+}
+
+#nextup
+{
+text-align:center;
+bottom:200px;
+font-size:25px;
+
+}
+#nextex
+{
+font-size:22px;
+text-align:center;
+}
+#interval
+{
+visibility:hidden;
+}
+#count1
+{
+visibility:hidden;
+}
+a:link {text-decoration:none;}   
+a:visited {text-decoration:none;} 
+a:hover {text-decoration:none;}  
+a:active {text-decoration:none;}  
+a
+{
+color:#FFFFFF;
+}
+#btndata
+{
+height:68px;
+}
